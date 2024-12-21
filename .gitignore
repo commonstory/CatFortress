@@ -1,0 +1,41 @@
+
+# Ignore virtual environment directories
+venv/
+.env/
+.env.bak/
+env/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# Ignore PyCharm project files
+.idea/
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore log files
+*.log
+
+# Ignore generated files
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Ignore requirements files automatically created
+pip-log.txt
+
+# Ignore other backup or temporary files
+*.bak
+*.swp
+*.tmp
+
+# Ignore coverage reports
+.coverage
+htmlcov/
+
+# Ignore pytest cache
+.pytest_cache/
+.cache/
