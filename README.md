@@ -42,4 +42,10 @@ We welcome contributions from everyone! Whether you’re a coder, artist, sound 
 4.	Commit your changes with clear, descriptive messages.
 5.	Push to your fork and create a pull request.
 
+#### Use chatGPT:
+1.	Go to https://chatgpt.com/
+2.  Message ChatGPT with: `lets make a game in pygame engine, similar to Dwarf Fortress`
+3.  Ask for ideas, improvements and code snippets
+4.  Test and if it looks good create a PR!
+
 Let’s build something fun, unique, and collaborative! 🚀🎮
