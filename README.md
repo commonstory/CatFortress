@@ -45,6 +45,7 @@ We welcome contributions from everyone! Whether you’re a coder, artist, sound 
 #### Use chatGPT:
 1.	Go to https://chatgpt.com/
 2.  Message ChatGPT with: `lets make a game in pygame engine, similar to Dwarf Fortress`
+    (https://chatgpt.com/share/6766cac1-6090-800f-a111-4698c8596fa1)
 3.  Ask for ideas, improvements and code snippets
 4.  Test and if it looks good create a PR!
 
