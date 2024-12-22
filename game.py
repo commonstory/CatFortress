@@ -54,6 +54,7 @@ def generate_map():
             else:  # 15% chance for tree
                 row.append("tree")
         game_map.append(row)
+    game_map[GRID_HEIGHT-1][GRID_WIDTH-1]="cat_mon"
     return game_map
 
 # Function to handle mining

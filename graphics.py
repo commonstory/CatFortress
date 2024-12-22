@@ -46,6 +46,7 @@ COLLIDABLE_TILES = ["stone", "tree"]
 class Graphics:
     def __init__(self, screen):
         self.screen = screen
+        self.cat_mon_image = pygame.image.load("cat_mon.png")
         # Load the grass sprite
         self.grass_image = pygame.image.load("grass.png")
         self.stone_image = pygame.image.load("stone.png")
@@ -124,6 +125,8 @@ class Graphics:
                     pygame.draw.rect(self.screen, FORT_COLOR, rect)  # Draw fort tiles
                 elif tile == "tree":
                     self.screen.blit(self.tree_image, (x * TILE_SIZE, y * TILE_SIZE))
+                elif tile == "cat_mon":
+                    self.screen.blit(self.cat_mon_image, (x * TILE_SIZE, y * TILE_SIZE))
 
     def draw_player(self, player_pos):
         self.screen.blit(self.player[40], (player_pos[0] * TILE_SIZE, player_pos[1] * TILE_SIZE - 30))
