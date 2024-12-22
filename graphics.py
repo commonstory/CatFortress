@@ -62,6 +62,8 @@ class Graphics:
         """
         clock = pygame.time.Clock()
         start_time = pygame.time.get_ticks()
+        font = pygame.font.SysFont("Arial", 50)
+        resource_text = font.render(f"Cat Fortress", True, BLACK)
 
         while True:
             # Clear the screen
@@ -73,6 +75,7 @@ class Graphics:
             x = (screen_width - image_width) // 2
             y = (screen_height - image_height) // 2
             self.screen.blit(self.launcher_image, (x, y))
+            self.screen.blit(resource_text, (screen_width/2 - resource_text.get_width()/2, screen_height/2- resource_text.get_height()))  # Draw resources at the top-left corner
 
             # Update the display
             pygame.display.flip()

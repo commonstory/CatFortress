@@ -8,7 +8,7 @@ pygame.init()
 # Create the game window
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 graphics = Graphics(screen)
-pygame.display.set_caption('Cats Fortress Game')
+pygame.display.set_caption('Cat Fortress Game')
 # Show the launcher screen for 3 seconds
 graphics.show_launcher(display_time=3000)
 # Player properties
