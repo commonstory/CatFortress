@@ -9,7 +9,8 @@ pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 graphics = Graphics(screen)
 pygame.display.set_caption('Cats Fortress Game')
-
+# Show the launcher screen for 3 seconds
+graphics.show_launcher(display_time=3000)
 # Player properties
 player = Player()
 player.player_x, player.player_y = 5, 5  # Starting position in grid (5, 5)

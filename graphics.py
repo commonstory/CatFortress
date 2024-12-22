@@ -1,5 +1,7 @@
 import pygame
 from models import Player
+import sys
+
 
 # Define constants
 WIDTH, HEIGHT = 800, 600   # Window size
@@ -48,7 +50,47 @@ class Graphics:
         self.grass_image = pygame.image.load("grass.png")
         self.stone_image = pygame.image.load("stone.png")
         self.tree_image = pygame.image.load("tree.png")
+        self.launcher_image = pygame.image.load("intro.png")
         self.player = sprite_sheet((65, 65), "SaraFullSheet.png", (0, 0))
+
+    def show_launcher(self, display_time):
+        """
+        Displays the launcher sprite for a few seconds.
+
+        Args:
+            display_time: Time (in milliseconds) to display the launcher.
+        """
+        clock = pygame.time.Clock()
+        start_time = pygame.time.get_ticks()
+
+        while True:
+            # Clear the screen
+            self.screen.fill((0, 0, 0))
+
+            # Display the launcher image at the center of the screen
+            screen_width, screen_height = self.screen.get_size()
+            image_width, image_height = self.launcher_image.get_size()
+            x = (screen_width - image_width) // 2
+            y = (screen_height - image_height) // 2
+            self.screen.blit(self.launcher_image, (x, y))
+
+            # Update the display
+            pygame.display.flip()
+
+            # Check for events
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    return  # Exit launcher when a key is pressed
+
+            # Exit after the specified time
+            if pygame.time.get_ticks() - start_time > display_time:
+                return
+
+            # Limit the frame rate
+            clock.tick(60)
 
     # Function to draw the grid
     def draw_grid(self):
