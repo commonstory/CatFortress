@@ -1,7 +1,7 @@
 import sys
 import random
 from graphics import *
-from models import Resources, Player
+from models import Player
 
 # Initialize Pygame
 pygame.init()
@@ -11,16 +11,15 @@ graphics = Graphics(screen)
 pygame.display.set_caption('Cats Fortress Game')
 
 # Player properties
-resource = Resources()
-resource.stone_count = 0             # Stone collected by the player
-resource.wood_count = 0              # Wood collected by the player
-resource.stone_capacity = 50         # Max stone the player can carry
-resource.wood_capacity = 50          # Max wood the player can carry
 player = Player()
 player.player_x, player.player_y = 5, 5  # Starting position in grid (5, 5)
 player.player_speed = 1            # Speed of player movement
 player.has_pickaxe = False         # Whether the player has crafted a pickaxe
 player.player_health = 100         # Player health
+player.stone_count = 0             # Stone collected by the player
+player.wood_count = 0              # Wood collected by the player
+player.stone_capacity = 50         # Max stone the player can carry
+player.wood_capacity = 50          # Max wood the player can carry
 
 # Enemy properties
 goblins = []                # List of goblin enemies
@@ -58,17 +57,17 @@ def generate_map():
 
 # Function to handle mining
 def mine_tile(game_map, x, y):
-    if game_map[y][x] == "stone" and resource.stone_count < resource.stone_capacity:
+    if game_map[y][x] == "stone" and player.stone_count < player.stone_capacity:
         game_map[y][x] = "grass"  # Mine the stone by turning it into grass
-        resource.stone_count += 1  # Increase the stone count
+        player.stone_count += 1  # Increase the stone count
         if player.has_pickaxe:
-            resource.stone_count += 1  # Pickaxe mines 2 stones at once
+            player.stone_count += 1  # Pickaxe mines 2 stones at once
 
 # Function to handle cutting trees
 def cut_tree(game_map, x, y):
-    if game_map[y][x] == "tree" and resource.wood_count < resource.wood_capacity:
+    if game_map[y][x] == "tree" and player.wood_count < player.wood_capacity:
         game_map[y][x] = "grass"  # Cut down the tree by turning it into grass
-        resource.wood_count += 1  # Increase the wood count
+        player.wood_count += 1  # Increase the wood count
 
 # Function to handle building placement
 def place_building(game_map, x, y):
@@ -83,28 +82,28 @@ def place_building(game_map, x, y):
     # Check if enough resources are available
     if game_map[y][x] == "grass":
         # Check if player has enough resources for each building type
-        if resource.stone_count >= building_costs["house"]["stone"] and resource.wood_count >= building_costs["house"]["wood"]:
+        if player.stone_count >= building_costs["house"]["stone"] and player.wood_count >= building_costs["house"]["wood"]:
             game_map[y][x] = "house"
-            resource.stone_count -= building_costs["house"]["stone"]
-            resource.wood_count -= building_costs["house"]["wood"]
-        elif resource.stone_count >= building_costs["workshop"]["stone"] and resource.wood_count >= building_costs["workshop"]["wood"]:
+            player.stone_count -= building_costs["house"]["stone"]
+            player.wood_count -= building_costs["house"]["wood"]
+        elif player.stone_count >= building_costs["workshop"]["stone"] and player.wood_count >= building_costs["workshop"]["wood"]:
             game_map[y][x] = "workshop"
-            resource.stone_count -= building_costs["workshop"]["stone"]
-            resource.wood_count -= building_costs["workshop"]["wood"]
-        elif resource.stone_count >= building_costs["storage"]["stone"] and resource.wood_count >= building_costs["storage"]["wood"]:
+            player.stone_count -= building_costs["workshop"]["stone"]
+            player.wood_count -= building_costs["workshop"]["wood"]
+        elif player.stone_count >= building_costs["storage"]["stone"] and player.wood_count >= building_costs["storage"]["wood"]:
             game_map[y][x] = "storage"
-            resource.stone_count -= building_costs["storage"]["stone"]
-            resource.wood_count -= building_costs["storage"]["wood"]
-        elif resource.stone_count >= building_costs["fort"]["stone"] and resource.wood_count >= building_costs["fort"]["wood"]:
+            player.stone_count -= building_costs["storage"]["stone"]
+            player.wood_count -= building_costs["storage"]["wood"]
+        elif player.stone_count >= building_costs["fort"]["stone"] and player.wood_count >= building_costs["fort"]["wood"]:
             game_map[y][x] = "fort"
-            resource.stone_count -= building_costs["fort"]["stone"]
-            resource.wood_count -= building_costs["fort"]["wood"]
+            player.stone_count -= building_costs["fort"]["stone"]
+            player.wood_count -= building_costs["fort"]["wood"]
 
 # Function to craft the pickaxe in the workshop
 def craft_pickaxe(game_map, x, y):
-    if game_map[y][x] == "workshop" and resource.stone_count >= 5 and resource.wood_count >= 3 and not player.has_pickaxe:
-        resource.stone_count -= 5
-        resource.wood_count -= 3
+    if game_map[y][x] == "workshop" and player.stone_count >= 5 and player.wood_count >= 3 and not player.has_pickaxe:
+        player.stone_count -= 5
+        player.wood_count -= 3
         player.has_pickaxe = True  # The player now has a pickaxe
         print("Pickaxe crafted!")
 
@@ -129,8 +128,8 @@ def check_combat():
             player.player_health -= 10
             print(f"Player health: {player.player_health}")
             # Goblin drops resources when defeated
-            resource.stone_count += 5
-            resource.wood_count += 3
+            player.stone_count += 5
+            player.wood_count += 3
             goblins.remove(goblin)  # Remove the goblin after it is defeated
 
 def move_player(dx, dy, player_pos, game_map):
@@ -203,7 +202,7 @@ def main():
         graphics.draw_goblins(goblins)
 
         # Draw the resources and health
-        graphics.draw_resources(resource,player)
+        graphics.draw_resources(player)
 
         # Event handling
         for event in pygame.event.get():

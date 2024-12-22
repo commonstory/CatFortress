@@ -1,5 +1,5 @@
 import pygame
-from models import Resources, Player
+from models import Player
 
 # Define constants
 WIDTH, HEIGHT = 800, 600   # Window size
@@ -47,6 +47,7 @@ class Graphics:
         # Load the grass sprite
         self.grass_image = pygame.image.load("grass.png")
         self.stone_image = pygame.image.load("stone.png")
+        self.tree_image = pygame.image.load("tree.png")
         self.player = sprite_sheet((65, 65), "SaraFullSheet.png", (0, 0))
 
     # Function to draw the grid
@@ -77,7 +78,7 @@ class Graphics:
                 elif tile == "fort":
                     pygame.draw.rect(self.screen, FORT_COLOR, rect)  # Draw fort tiles
                 elif tile == "tree":
-                    pygame.draw.rect(self.screen, TREE_COLOR, rect)  # Draw tree tiles
+                    self.screen.blit(self.tree_image, (x * TILE_SIZE, y * TILE_SIZE))
 
     def draw_player(self, player_pos):
         self.screen.blit(self.player[40], (player_pos[0] * TILE_SIZE, player_pos[1] * TILE_SIZE - 30))
@@ -89,7 +90,7 @@ class Graphics:
             pygame.draw.rect(self.screen, GOBLIN_COLOR, goblin_rect)  # Draw goblins as green squares
 
     # Function to draw the player's resource (stone and wood count)
-    def draw_resources(self, resource:Resources,player:Player):
+    def draw_resources(self, player:Player):
         font = pygame.font.SysFont("Arial", 24)
-        resource_text = font.render(f"Stone: {resource.stone_count}/{resource.stone_capacity}  Wood: {resource.wood_count}/{resource.wood_capacity}  Pickaxe: {'Yes' if player.has_pickaxe else 'No'}  Health: {player.player_health}", True, WHITE)
+        resource_text = font.render(f"Stone: {player.stone_count}/{player.stone_capacity}  Wood: {player.wood_count}/{player.wood_capacity}  Pickaxe: {'Yes' if player.has_pickaxe else 'No'}  Health: {player.player_health}", True, WHITE)
         self.screen.blit(resource_text, (10, 10))  # Draw resources at the top-left corner
