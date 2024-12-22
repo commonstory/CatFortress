@@ -1,13 +1,14 @@
 import sys
 import random
-from graphics import *
+from ui import *
 from models import Player
-
+from util import *
 # Initialize Pygame
 pygame.init()
 # Create the game window
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 graphics = Graphics(screen)
+ui = UI(graphics)
 pygame.display.set_caption('Cat Fortress Game')
 # Show the launcher screen for 3 seconds
 graphics.show_launcher(display_time=3000)
@@ -21,7 +22,7 @@ player.stone_count = 0             # Stone collected by the player
 player.wood_count = 0              # Wood collected by the player
 player.stone_capacity = 50         # Max stone the player can carry
 player.wood_capacity = 50          # Max wood the player can carry
-
+monument_pos = (GRID_WIDTH-1, GRID_HEIGHT-1)
 # Enemy properties
 goblins = []                # List of goblin enemies
 goblin_count = 3            # Number of goblins to spawn
@@ -54,7 +55,7 @@ def generate_map():
             else:  # 15% chance for tree
                 row.append("tree")
         game_map.append(row)
-    game_map[GRID_HEIGHT-1][GRID_WIDTH-1]="cat_mon"
+    game_map[monument_pos[1]][monument_pos[0]]="cat_mon"
     return game_map
 
 # Function to handle mining
@@ -248,10 +249,15 @@ def main():
         elif keys[pygame.K_RIGHT]:
             dx, dy = 1, 0
 
-        player.player_x,player.player_y = move_player(dx, dy, player_pos, game_map)
+        player_pos = move_player(dx, dy, player_pos, game_map)
+        (player.player_x, player.player_y) = player_pos
         # Move goblins and check for combat
         move_goblins()
         check_combat()
+
+        # Check proximity and show dialog
+        if is_near(player_pos, monument_pos):
+            ui.draw_dialog("This is the ancient Cat Monument. It radiates mystery!")
 
         # Update the screen
         pygame.display.flip()
