@@ -1,4 +1,4 @@
-# CatsFortress
+# CatFortress
 
 Welcome to the **Collaborative Game Dev with ChatGPT** project! In this repository, we are building a game together with the help of ChatGPT, an AI-powered coding assistant. The goal of this project is to explore the potential of AI-driven game development while fostering creativity, coding skills, and collaboration.
 
